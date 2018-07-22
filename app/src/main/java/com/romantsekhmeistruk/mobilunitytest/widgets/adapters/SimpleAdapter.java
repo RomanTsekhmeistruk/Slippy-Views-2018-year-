@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Roman Tsekhmeistruk on 09.10.2017.
- */
 public abstract class SimpleAdapter<T, VH extends RecyclerView.ViewHolder>
 		extends RecyclerView.Adapter<VH> {
 

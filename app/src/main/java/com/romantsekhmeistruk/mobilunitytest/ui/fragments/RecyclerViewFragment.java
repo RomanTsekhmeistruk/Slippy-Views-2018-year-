@@ -44,12 +44,7 @@ public class RecyclerViewFragment extends BaseAnimatedFragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		initViewPagerIndicatorView();
 		initRecyclerView();
-	}
-
-	private void initViewPagerIndicatorView() {
-
 	}
 
 	private void initRecyclerView() {

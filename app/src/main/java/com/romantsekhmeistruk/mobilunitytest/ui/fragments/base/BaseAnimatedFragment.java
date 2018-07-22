@@ -152,12 +152,6 @@ public class BaseAnimatedFragment extends BaseFragment {
 		livingRoomAnimateInHandler.removeCallbacks(livingRoomAnimateInRunnable);
 	}
 
-	protected void showRoom() {
-		livingRoomImages.setVisibility(View.INVISIBLE);
-		bedroomImages.setVisibility(View.INVISIBLE);
-		kitchenImages.setVisibility(View.INVISIBLE);
-	}
-
 	protected void animateIn() {
 		animateIn(0);
 	}
