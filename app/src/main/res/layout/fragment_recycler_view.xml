@@ -16,6 +16,7 @@
 		<include layout="@layout/button_back"/>
 
 		<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+			android:id="@+id/header"
 			android:layout_width="wrap_content"
 			android:layout_marginRight="@dimen/standard_margin"
 			android:layout_marginLeft="@dimen/standard_margin"
@@ -26,18 +27,25 @@
 			android:textSize="@dimen/header_text_size"
 			app:textFont="@string/font_pebble_regular"/>
 
-		<com.romantsekhmeistruk.mobilunitytest.widgets.views.SnappedRecyclerView
-			android:id="@+id/recycler_view"
-			android:layout_marginTop="10dp"
+		<LinearLayout
+			android:id="@+id/scrollable_container"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:overScrollMode="never"/>
+			android:orientation="vertical">
 
-		<com.romantsekhmeistruk.mobilunitytest.widgets.views.ViewPagerIndicatorView
-			android:id="@+id/pager_indicator"
-			android:layout_marginTop="10dp"
-			android:layout_width="match_parent"
-			android:layout_height="30dp"/>
+			<com.romantsekhmeistruk.mobilunitytest.widgets.views.SnappedRecyclerView
+				android:id="@+id/recycler_view"
+				android:layout_marginTop="10dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:overScrollMode="never"/>
+
+			<com.romantsekhmeistruk.mobilunitytest.widgets.views.ViewPagerIndicatorView
+				android:id="@+id/pager_indicator"
+				android:layout_marginTop="10dp"
+				android:layout_width="match_parent"
+				android:layout_height="30dp"/>
+		</LinearLayout>
 
 		<RelativeLayout
 			android:layout_width="match_parent"

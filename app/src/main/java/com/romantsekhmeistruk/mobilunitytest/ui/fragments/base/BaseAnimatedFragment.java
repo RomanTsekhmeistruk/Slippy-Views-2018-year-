@@ -9,15 +9,22 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.romantsekhmeistruk.mobilunitytest.R;
 import com.romantsekhmeistruk.mobilunitytest.common.OnCenterItemChangedListener;
+import com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class BaseAnimatedFragment extends BaseFragment {
+
+	@BindView(R.id.header)
+	FontTextView header;
+	@BindView(R.id.scrollable_container)
+	LinearLayout scrollableContainer;
 
 	// Living Room Images
 	@BindView(R.id.frame_image)
@@ -88,10 +95,8 @@ public class BaseAnimatedFragment extends BaseFragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		initializeAnimationHelpers();
-		animateIn();
-		startLivingRoom();
-		initOnCenterItemChangedListener();
+		initialize();
+		animate();
 	}
 
 	@Override
@@ -150,6 +155,40 @@ public class BaseAnimatedFragment extends BaseFragment {
 		kitchenAnimateInHandler.removeCallbacks(kitchenAnimateInRunnable);
 		bedroomAnimateInHandler.removeCallbacks(bedroomAnimateInRunnable);
 		livingRoomAnimateInHandler.removeCallbacks(livingRoomAnimateInRunnable);
+	}
+
+	private void initialize() {
+		initializeAnimationHelpers();
+		initOnCenterItemChangedListener();
+	}
+
+	private void animate() {
+		animateIn();
+		startLivingRoom();
+		animateHeaderIn();
+		animateScrollableContainerIn();
+	}
+
+	private void animateHeaderIn() {
+		animateHeaderIn(0);
+	}
+
+	private void animateHeaderIn(long delay) {
+		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.header_animation_in);
+		animation.setInterpolator(new DecelerateInterpolator(6f));
+		animation.setStartOffset(delay);
+		header.startAnimation(animation);
+	}
+
+	private void animateScrollableContainerIn() {
+		animateScrollableContainerIn(200);
+	}
+
+	private void animateScrollableContainerIn(long delay) {
+		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.scrollable_container_animation_in);
+		animation.setInterpolator(new DecelerateInterpolator(6f));
+		animation.setStartOffset(delay);
+		scrollableContainer.startAnimation(animation);
 	}
 
 	protected void animateIn() {
