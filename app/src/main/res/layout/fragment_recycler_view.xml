@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/colorDark"
-	android:clickable="true"
-	android:focusable="true"
-	android:orientation="vertical">
+	android:background="@color/colorDark">
 
-	<include layout="@layout/button_back"/>
-</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:clickable="true"
+		android:focusable="true"
+		android:orientation="vertical">
+
+		<include layout="@layout/button_back"/>
+
+		<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+			android:layout_width="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_marginRight="@dimen/standard_margin"
+			android:layout_marginLeft="@dimen/standard_margin"
+			android:layout_height="wrap_content"
+			android:lineSpacingExtra="0dp"
+			android:text="@string/recycler_view"
+			android:textColor="@color/colorWhite"
+			android:textSize="@dimen/header_text_size"
+			app:textFont="@string/font_pebble_regular"/>
+	</LinearLayout>
+</ScrollView>
