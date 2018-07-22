@@ -32,4 +32,7 @@ dependencies {
 
     // Recycler View
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+
+    // Overscroll
+    implementation 'me.everything:overscroll-decor-android:1.0.4'
 }
