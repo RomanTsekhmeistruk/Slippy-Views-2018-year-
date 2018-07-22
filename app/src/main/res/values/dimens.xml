@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="standard_margin">25dp</dimen>
+
+	<dimen name="header_margin_top">50dp</dimen>
+	<dimen name="header_text_size">43sp</dimen>
+
+	<dimen name="button_text_size">16sp</dimen>
+
+	<dimen name="normal_text_size">16sp</dimen>
+
+	<dimen name="button_height">55dp</dimen>
+</resources>

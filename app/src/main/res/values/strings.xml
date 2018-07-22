@@ -1,3 +1,13 @@
 <resources>
 	<string name="app_name">Mobilunity Test</string>
+
+	<string name="welcome">Hi there! Welcome to Mobilunity Test Task :)</string>
+	<string name="welcome_screen_description">I did not know if the items should be static, or they could change dynamically (︶︿︶). Well, so I created 2 separate cases - using RecylcerView (items can change dynamically) and ViewPager (items are static) (◎‿-) . Here you can choose what you like more.</string>
+
+	<string name="view_pager">Using ViewPager</string>
+	<string name="recycler_view">Using RecyclerView</string>
+
+	<!-- Fonts -->
+	<string name="font_open_sans_regular">OpenSans-Regular.ttf</string>
+	<string name="font_pebble_regular">PebbleRegular.ttf</string>
 </resources>
