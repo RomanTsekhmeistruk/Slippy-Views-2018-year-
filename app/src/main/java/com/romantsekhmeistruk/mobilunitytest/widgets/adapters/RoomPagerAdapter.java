@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.romantsekhmeistruk.mobilunitytest.R;
+import com.romantsekhmeistruk.mobilunitytest.common.Constants;
 import com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView;
 
 public class RoomPagerAdapter extends PagerAdapter {
@@ -43,12 +44,14 @@ public class RoomPagerAdapter extends PagerAdapter {
 		FontTextView roomName = layout.findViewById(R.id.room_name);
 		switch (position) {
 			case 0:
+				layout.setTag(Constants.FIRST_PAGE);
 				roomName.setText(R.string.living_room);
 				break;
 			case 1:
 				roomName.setText(R.string.bedroom);
 				break;
 			case 2:
+				layout.setTag(Constants.LAST_PAGE);
 				roomName.setText(R.string.kitchen);
 				break;
 		}
