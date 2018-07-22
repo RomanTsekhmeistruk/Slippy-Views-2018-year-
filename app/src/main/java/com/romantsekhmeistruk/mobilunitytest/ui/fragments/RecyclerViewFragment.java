@@ -71,6 +71,8 @@ public class RecyclerViewFragment extends BaseAnimatedFragment {
 															   size.x,
 															   getResources().getDimension(R.dimen.item_width)));
 
+		recyclerView.setOnCenterItemChangedListener(onCenterItemChangedListener);
+
 		new HorizontalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView))
 				.setOverScrollUpdateListener(
 						new IOverScrollUpdateListener() { // Setting page resizing when overscroll

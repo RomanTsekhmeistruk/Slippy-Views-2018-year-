@@ -6,14 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.romantsekhmeistruk.mobilunitytest.common.OnCenterItemChangedListener;
+
 public class SnappedRecyclerView extends RecyclerView {
 
 	public static final int SCROLL_DIRECTION_LEFT = 0;
 
 	public static final int SCROLL_DIRECTION_RIGHT = 1;
 
-	private int mScrollDirection;
-	private OnCenterItemChangedListener mCenterItemChangedListener;
+	private int scrollDirection;
+	private OnCenterItemChangedListener centerItemChangedListener;
 
 	private float minScale = 0.9f;
 	private float minAlpha = 0.7f;
@@ -34,16 +36,6 @@ public class SnappedRecyclerView extends RecyclerView {
 
 	public SnappedRecyclerView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-	}
-
-	@Override
-	public void onScrollStateChanged(int state) {
-		super.onScrollStateChanged(state);
-		if (state == SCROLL_STATE_IDLE) {
-			if (mCenterItemChangedListener != null) {
-				mCenterItemChangedListener.onCenterItemChanged(findCenterViewIndex());
-			}
-		}
 	}
 
 	@Override
@@ -68,6 +60,9 @@ public class SnappedRecyclerView extends RecyclerView {
 			if (scale > minScale) {
 				if (viewPagerIndicatorView != null && wasRecyclerViewScrolled) {
 					viewPagerIndicatorView.invalidateIndicators(getChildLayoutPosition(child));
+				}
+				if (centerItemChangedListener != null) {
+					centerItemChangedListener.onCenterItemChanged(getChildLayoutPosition(child));
 				}
 			}
 		}
@@ -141,28 +136,23 @@ public class SnappedRecyclerView extends RecyclerView {
 		int scrollDistanceLeft = leftEdge - leftMargin;
 		int scrollDistanceRight = rightMargin - rightEdge;
 
-		if (mScrollDirection == SCROLL_DIRECTION_LEFT) {
+		if (scrollDirection == SCROLL_DIRECTION_LEFT) {
 			smoothScrollBy(scrollDistanceLeft, 0);
 		}
-		else if (mScrollDirection == SCROLL_DIRECTION_RIGHT) {
+		else if (scrollDirection == SCROLL_DIRECTION_RIGHT) {
 			smoothScrollBy(-scrollDistanceRight, 0);
 		}
 	}
 
 	public int getScrollDirection() {
-		return mScrollDirection;
+		return scrollDirection;
 	}
 
 	private void setScrollDirection(int dx) {
-		mScrollDirection = dx >= 0 ? SCROLL_DIRECTION_LEFT : SCROLL_DIRECTION_RIGHT;
+		scrollDirection = dx >= 0 ? SCROLL_DIRECTION_LEFT : SCROLL_DIRECTION_RIGHT;
 	}
 
 	public void setOnCenterItemChangedListener(OnCenterItemChangedListener listener) {
-		mCenterItemChangedListener = listener;
-	}
-
-	public interface OnCenterItemChangedListener {
-
-		void onCenterItemChanged(int centerPosition);
+		centerItemChangedListener = listener;
 	}
 }

@@ -12,15 +12,15 @@ import java.util.List;
 public abstract class SimpleAdapter<T, VH extends RecyclerView.ViewHolder>
 		extends RecyclerView.Adapter<VH> {
 
-	private List<T> mList;
+	private List<T> list;
 
 	@Override
 	public int getItemCount() {
-		return mList != null ? mList.size() : 0;
+		return list != null ? list.size() : 0;
 	}
 
 	public T getItem(int i) {
-		return mList.get(i);
+		return list.get(i);
 	}
 
 	@Override
@@ -29,40 +29,40 @@ public abstract class SimpleAdapter<T, VH extends RecyclerView.ViewHolder>
 	}
 
 	public void add(T... items) {
-		if (mList == null) {
-			mList = new ArrayList<>(items.length);
+		if (list == null) {
+			list = new ArrayList<>(items.length);
 		}
 
-		Collections.addAll(mList, items);
+		Collections.addAll(list, items);
 
 		notifyDataSetChanged();
 	}
 
 	public void add(List<T> items) {
-		if (mList == null) {
-			mList = new ArrayList<>(items.size());
+		if (list == null) {
+			list = new ArrayList<>(items.size());
 		}
 
-		mList.addAll(items);
+		list.addAll(items);
 
 		notifyDataSetChanged();
 	}
 
 	public List<T> getData() {
-		return mList;
+		return list;
 	}
 
 	public void removeItem(int position) {
-		if (mList != null) {
-			mList.remove(position);
+		if (list != null) {
+			list.remove(position);
 			notifyItemRemoved(position);
-			notifyItemRangeChanged(position, mList.size());
+			notifyItemRangeChanged(position, list.size());
 		}
 	}
 
 	public void clearList() {
-		if (mList != null) {
-			mList.clear();
+		if (list != null) {
+			list.clear();
 		}
 		notifyDataSetChanged();
 	}

@@ -13,7 +13,7 @@ import com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView;
 
 public class RoomPagerAdapter extends PagerAdapter {
 
-	private final int count = 3;
+	private static final int COUNT = 3;
 	private final Context context;
 
 	public RoomPagerAdapter(Context context) {
@@ -22,7 +22,7 @@ public class RoomPagerAdapter extends PagerAdapter {
 
 	@Override
 	public int getCount() {
-		return count;
+		return COUNT;
 	}
 
 	@Override

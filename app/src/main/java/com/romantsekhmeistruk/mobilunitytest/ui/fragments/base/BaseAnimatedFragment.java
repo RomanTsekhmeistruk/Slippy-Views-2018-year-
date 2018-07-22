@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.romantsekhmeistruk.mobilunitytest.R;
+import com.romantsekhmeistruk.mobilunitytest.common.OnCenterItemChangedListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -20,65 +21,69 @@ public class BaseAnimatedFragment extends BaseFragment {
 
 	// Living Room Images
 	@BindView(R.id.frame_image)
-	ImageView mFrameImage;
+	ImageView frameImage;
 	@BindView(R.id.lamp_image)
-	ImageView mLampImage;
+	ImageView lampImage;
 	@BindView(R.id.sofa_image)
-	ImageView mSofaImage;
+	ImageView sofaImage;
 	@BindView(R.id.plant_image)
-	ImageView mPlantImage;
+	ImageView plantImage;
 	@BindView(R.id.table_image)
-	ImageView mTableImage;
+	ImageView tableImage;
 	@BindView(R.id.tv_image)
-	ImageView mTvImage;
+	ImageView tvImage;
 
 	// Kitchen Images
 	@BindView(R.id.kitchen_island)
-	ImageView mKitchenIsland;
+	ImageView kitchenIsland;
 	@BindView(R.id.kitchen_shelf)
-	ImageView mKitchenShelf;
+	ImageView kitchenShelf;
 	@BindView(R.id.kitchen_frame)
-	ImageView mKitchenFrame;
+	ImageView kitchenFrame;
 	@BindView(R.id.kitchen_flower)
-	ImageView mKitchenFlower;
+	ImageView kitchenFlower;
 	@BindView(R.id.kitchen_pan)
-	ImageView mKitchenPan;
+	ImageView kitchenPan;
 	@BindView(R.id.kitchen_stool)
-	ImageView mKitchenStool;
+	ImageView kitchenStool;
 
 	// Bedroom Images
 	@BindView(R.id.bedroom_room_frame)
-	ImageView mBedroomFrame;
+	ImageView bedroomFrame;
 	@BindView(R.id.bedroom_bed)
-	ImageView mBedroomBed;
+	ImageView bedroomBed;
 	@BindView(R.id.bedroom_plant)
-	ImageView mBedroomPlant;
+	ImageView bedroomPlant;
 	@BindView(R.id.bedroom_table)
-	ImageView mBedroomTable;
+	ImageView bedroomTable;
 	@BindView(R.id.bedroom_books)
-	ImageView mBedroomBooks;
+	ImageView bedroomBooks;
 	@BindView(R.id.bedroom_lamp)
-	ImageView mBedroomLamp;
+	ImageView bedroomLamp;
 
 	// Rooms Containers
 	@BindView(R.id.living_room)
-	RelativeLayout mLivingRoomImages;
+	RelativeLayout livingRoomImages;
 	@BindView(R.id.bedroom)
-	RelativeLayout mBedroomImages;
+	RelativeLayout bedroomImages;
 	@BindView(R.id.kitchen)
-	RelativeLayout mKitchenImages;
+	RelativeLayout kitchenImages;
 
 	// Animations Helpers
-	private Handler mKitchenAnimateOutHandler;
-	private Handler mBedroomAnimateOutHandler;
-	private Handler mLivingRoomAnimateOutHandler;
-	private Handler mKitchenAnimateInHandler;
-	private Handler mBedroomAnimateInHandler;
-	private Handler mLivingRoomAnimateInHandler;
-	private Runnable mAnimateOutRunnable;
-	private Runnable mKitchenAnimateInRunnable;
-	private Runnable mBedroomAnimateInRunnable;
-	private Runnable mLivingRoomAnimateInRunnable;
+	private Handler kitchenAnimateOutHandler;
+	private Handler bedroomAnimateOutHandler;
+	private Handler livingRoomAnimateOutHandler;
+	private Handler kitchenAnimateInHandler;
+	private Handler bedroomAnimateInHandler;
+	private Handler livingRoomAnimateInHandler;
+	private Runnable animateOutRunnable;
+	private Runnable kitchenAnimateInRunnable;
+	private Runnable bedroomAnimateInRunnable;
+	private Runnable livingRoomAnimateInRunnable;
+
+	protected OnCenterItemChangedListener onCenterItemChangedListener;
+
+	private int lastShowedRoom;
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -86,6 +91,7 @@ public class BaseAnimatedFragment extends BaseFragment {
 		initializeAnimationHelpers();
 		animateIn();
 		startLivingRoom();
+		initOnCenterItemChangedListener();
 	}
 
 	@Override
@@ -99,33 +105,57 @@ public class BaseAnimatedFragment extends BaseFragment {
 		getActivity().onBackPressed();
 	}
 
-	private void initializeAnimationHelpers() {
-		mKitchenAnimateOutHandler = new Handler();
-		mBedroomAnimateOutHandler = new Handler();
-		mLivingRoomAnimateOutHandler = new Handler();
-		mKitchenAnimateInHandler = new Handler();
-		mBedroomAnimateInHandler = new Handler();
-		mLivingRoomAnimateInHandler = new Handler();
+	private void initOnCenterItemChangedListener() {
+		onCenterItemChangedListener = centerPosition -> {
+			if (centerPosition == lastShowedRoom) {
+				return;
+			}
+			animateOut();
+			clearAnimations();
+			switch (centerPosition) {
+				case 0:
+					lastShowedRoom = 0;
+					livingRoomAnimateInHandler.postDelayed(livingRoomAnimateInRunnable, 1000);
+					break;
+				case 1:
+					lastShowedRoom = 1;
+					bedroomAnimateInHandler.postDelayed(bedroomAnimateInRunnable, 1000);
+					break;
+				case 2:
+					lastShowedRoom = 2;
+					kitchenAnimateInHandler.postDelayed(kitchenAnimateInRunnable, 1000);
+					break;
+			}
+		};
+	}
 
-		mAnimateOutRunnable = this::animateOut;
-		mKitchenAnimateInRunnable = this::startKitchen;
-		mBedroomAnimateInRunnable = this::startBedroom;
-		mLivingRoomAnimateInRunnable = this::startLivingRoom;
+	private void initializeAnimationHelpers() {
+		kitchenAnimateOutHandler = new Handler();
+		bedroomAnimateOutHandler = new Handler();
+		livingRoomAnimateOutHandler = new Handler();
+		kitchenAnimateInHandler = new Handler();
+		bedroomAnimateInHandler = new Handler();
+		livingRoomAnimateInHandler = new Handler();
+
+		animateOutRunnable = this::animateOut;
+		kitchenAnimateInRunnable = this::startKitchen;
+		bedroomAnimateInRunnable = this::startBedroom;
+		livingRoomAnimateInRunnable = this::startLivingRoom;
 	}
 
 	protected void clearAnimations() {
-		mKitchenAnimateOutHandler.removeCallbacks(mAnimateOutRunnable);
-		mBedroomAnimateOutHandler.removeCallbacks(mAnimateOutRunnable);
-		mLivingRoomAnimateOutHandler.removeCallbacks(mAnimateOutRunnable);
-		mKitchenAnimateInHandler.removeCallbacks(mKitchenAnimateInRunnable);
-		mBedroomAnimateInHandler.removeCallbacks(mBedroomAnimateInRunnable);
-		mLivingRoomAnimateInHandler.removeCallbacks(mLivingRoomAnimateInRunnable);
+		kitchenAnimateOutHandler.removeCallbacks(animateOutRunnable);
+		bedroomAnimateOutHandler.removeCallbacks(animateOutRunnable);
+		livingRoomAnimateOutHandler.removeCallbacks(animateOutRunnable);
+		kitchenAnimateInHandler.removeCallbacks(kitchenAnimateInRunnable);
+		bedroomAnimateInHandler.removeCallbacks(bedroomAnimateInRunnable);
+		livingRoomAnimateInHandler.removeCallbacks(livingRoomAnimateInRunnable);
 	}
 
 	protected void showRoom() {
-		mLivingRoomImages.setVisibility(View.INVISIBLE);
-		mBedroomImages.setVisibility(View.INVISIBLE);
-		mKitchenImages.setVisibility(View.INVISIBLE);
+		livingRoomImages.setVisibility(View.INVISIBLE);
+		bedroomImages.setVisibility(View.INVISIBLE);
+		kitchenImages.setVisibility(View.INVISIBLE);
 	}
 
 	protected void animateIn() {
@@ -136,28 +166,28 @@ public class BaseAnimatedFragment extends BaseFragment {
 		if (!isViewsAvailable()) {
 			return;
 		}
-		if (mLivingRoomImages.getVisibility() == View.VISIBLE) {
+		if (livingRoomImages.getVisibility() == View.VISIBLE) {
 			animateLivingRoomIn(delay);
 			return;
 		}
-		if (mKitchenImages.getVisibility() == View.VISIBLE) {
+		if (kitchenImages.getVisibility() == View.VISIBLE) {
 			animateKitchenIn(delay);
 			return;
 		}
-		if (mBedroomImages.getVisibility() == View.VISIBLE) {
+		if (bedroomImages.getVisibility() == View.VISIBLE) {
 			animateBedroomIn(delay);
 			return;
 		}
 	}
 
 	private boolean isViewsAvailable() {
-		if (mLivingRoomImages == null) {
+		if (livingRoomImages == null) {
 			return false;
 		}
-		if (mKitchenImages == null) {
+		if (kitchenImages == null) {
 			return false;
 		}
-		if (mBedroomImages == null) {
+		if (bedroomImages == null) {
 			return false;
 		}
 		return true;
@@ -167,36 +197,30 @@ public class BaseAnimatedFragment extends BaseFragment {
 		if (!isViewsAvailable()) {
 			return;
 		}
-		mKitchenImages.setVisibility(View.INVISIBLE);
-		mBedroomImages.setVisibility(View.INVISIBLE);
-		mLivingRoomImages.setVisibility(View.VISIBLE);
+		kitchenImages.setVisibility(View.INVISIBLE);
+		bedroomImages.setVisibility(View.INVISIBLE);
+		livingRoomImages.setVisibility(View.VISIBLE);
 		animateIn();
-//		mLivingRoomAnimateOutHandler.postDelayed(mAnimateOutRunnable, 10000);
-//		mKitchenAnimateInHandler.postDelayed(mKitchenAnimateInRunnable, 11000);
 	}
 
 	protected void startKitchen() {
 		if (!isViewsAvailable()) {
 			return;
 		}
-		mBedroomImages.setVisibility(View.INVISIBLE);
-		mLivingRoomImages.setVisibility(View.INVISIBLE);
-		mKitchenImages.setVisibility(View.VISIBLE);
+		bedroomImages.setVisibility(View.INVISIBLE);
+		livingRoomImages.setVisibility(View.INVISIBLE);
+		kitchenImages.setVisibility(View.VISIBLE);
 		animateIn();
-//		mKitchenAnimateOutHandler.postDelayed(mAnimateOutRunnable, 8000);
-//		mBedroomAnimateInHandler.postDelayed(mBedroomAnimateInRunnable, 9000);
 	}
 
 	protected void startBedroom() {
 		if (!isViewsAvailable()) {
 			return;
 		}
-		mKitchenImages.setVisibility(View.INVISIBLE);
-		mLivingRoomImages.setVisibility(View.INVISIBLE);
-		mBedroomImages.setVisibility(View.VISIBLE);
+		kitchenImages.setVisibility(View.INVISIBLE);
+		livingRoomImages.setVisibility(View.INVISIBLE);
+		bedroomImages.setVisibility(View.VISIBLE);
 		animateIn();
-//		mBedroomAnimateOutHandler.postDelayed(mAnimateOutRunnable, 8000);
-//		mLivingRoomAnimateInHandler.postDelayed(mLivingRoomAnimateInRunnable, 9000);
 	}
 
 	protected void animateOut() {
@@ -207,15 +231,15 @@ public class BaseAnimatedFragment extends BaseFragment {
 		if (!isViewsAvailable()) {
 			return;
 		}
-		if (mLivingRoomImages.getVisibility() == View.VISIBLE) {
+		if (livingRoomImages.getVisibility() == View.VISIBLE) {
 			animateLivingRoomOut(delay);
 			return;
 		}
-		if (mKitchenImages.getVisibility() == View.VISIBLE) {
+		if (kitchenImages.getVisibility() == View.VISIBLE) {
 			animateKitchenOut(delay);
 			return;
 		}
-		if (mBedroomImages.getVisibility() == View.VISIBLE) {
+		if (bedroomImages.getVisibility() == View.VISIBLE) {
 			animateBedroomOut(delay);
 			return;
 		}
@@ -242,91 +266,91 @@ public class BaseAnimatedFragment extends BaseFragment {
 	private void animateOutBedroomFrame(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mBedroomFrame.startAnimation(animation);
-		mBedroomFrame.setVisibility(View.INVISIBLE);
+		bedroomFrame.startAnimation(animation);
+		bedroomFrame.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutBedroomBed(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mBedroomBed.startAnimation(animation);
-		mBedroomBed.setVisibility(View.INVISIBLE);
+		bedroomBed.startAnimation(animation);
+		bedroomBed.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutBedroomPlant(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mBedroomPlant.startAnimation(animation);
-		mBedroomPlant.setVisibility(View.INVISIBLE);
+		bedroomPlant.startAnimation(animation);
+		bedroomPlant.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutBedroomTable(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mBedroomTable.startAnimation(animation);
-		mBedroomTable.setVisibility(View.INVISIBLE);
+		bedroomTable.startAnimation(animation);
+		bedroomTable.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutBedroomBooks(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mBedroomBooks.startAnimation(animation);
-		mBedroomBooks.setVisibility(View.INVISIBLE);
+		bedroomBooks.startAnimation(animation);
+		bedroomBooks.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutBedroomLamp(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mBedroomLamp.startAnimation(animation);
-		mBedroomLamp.setVisibility(View.INVISIBLE);
+		bedroomLamp.startAnimation(animation);
+		bedroomLamp.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateInBedroomFrame(long delay) {
-		mBedroomFrame.setVisibility(View.VISIBLE);
+		bedroomFrame.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.bedroom_frame_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mBedroomFrame.startAnimation(animation);
+		bedroomFrame.startAnimation(animation);
 	}
 
 	private void animateInBedroomBed(long delay) {
-		mBedroomBed.setVisibility(View.VISIBLE);
+		bedroomBed.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.bedroom_bed_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mBedroomBed.startAnimation(animation);
+		bedroomBed.startAnimation(animation);
 	}
 
 	private void animateInBedroomPlant(long delay) {
-		mBedroomPlant.setVisibility(View.VISIBLE);
+		bedroomPlant.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.bedroom_plant_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mBedroomPlant.startAnimation(animation);
+		bedroomPlant.startAnimation(animation);
 	}
 
 	private void animateInBedroomTable(long delay) {
-		mBedroomTable.setVisibility(View.VISIBLE);
+		bedroomTable.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.bedroom_table_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mBedroomTable.startAnimation(animation);
+		bedroomTable.startAnimation(animation);
 	}
 
 	private void animateInBedroomBooks(long delay) {
-		mBedroomBooks.setVisibility(View.VISIBLE);
+		bedroomBooks.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.bedroom_books_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mBedroomBooks.startAnimation(animation);
+		bedroomBooks.startAnimation(animation);
 	}
 
 	private void animateInBedroomLamp(long delay) {
-		mBedroomLamp.setVisibility(View.VISIBLE);
+		bedroomLamp.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.bedroom_lamp_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mBedroomLamp.startAnimation(animation);
+		bedroomLamp.startAnimation(animation);
 	}
 
 	private void animateLivingRoomOut(long delay) {
@@ -359,133 +383,133 @@ public class BaseAnimatedFragment extends BaseFragment {
 	private void animateOutKitchenIsland(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mKitchenIsland.startAnimation(animation);
-		mKitchenIsland.setVisibility(View.INVISIBLE);
+		kitchenIsland.startAnimation(animation);
+		kitchenIsland.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutKitchenShelf(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mKitchenShelf.startAnimation(animation);
-		mKitchenShelf.setVisibility(View.INVISIBLE);
+		kitchenShelf.startAnimation(animation);
+		kitchenShelf.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutKitchenFrame(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mKitchenFrame.startAnimation(animation);
-		mKitchenFrame.setVisibility(View.INVISIBLE);
+		kitchenFrame.startAnimation(animation);
+		kitchenFrame.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutKitchenFlower(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mKitchenFlower.startAnimation(animation);
-		mKitchenFlower.setVisibility(View.INVISIBLE);
+		kitchenFlower.startAnimation(animation);
+		kitchenFlower.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutKitchenPan(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mKitchenPan.startAnimation(animation);
-		mKitchenPan.setVisibility(View.INVISIBLE);
+		kitchenPan.startAnimation(animation);
+		kitchenPan.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutKitchenStool(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mKitchenStool.startAnimation(animation);
-		mKitchenStool.setVisibility(View.INVISIBLE);
+		kitchenStool.startAnimation(animation);
+		kitchenStool.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateInKitchenIsland(long delay) {
-		mKitchenIsland.setVisibility(View.VISIBLE);
+		kitchenIsland.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.kitchen_island_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mKitchenIsland.startAnimation(animation);
+		kitchenIsland.startAnimation(animation);
 	}
 
 	private void animateInKitchenShelf(long delay) {
-		mKitchenShelf.setVisibility(View.VISIBLE);
+		kitchenShelf.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.kitchen_shelf_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mKitchenShelf.startAnimation(animation);
+		kitchenShelf.startAnimation(animation);
 	}
 
 	private void animateInKitchenFrame(long delay) {
-		mKitchenFrame.setVisibility(View.VISIBLE);
+		kitchenFrame.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.kitchen_frame_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mKitchenFrame.startAnimation(animation);
+		kitchenFrame.startAnimation(animation);
 	}
 
 	private void animateInKitchenFlower(long delay) {
-		mKitchenFlower.setVisibility(View.VISIBLE);
+		kitchenFlower.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.kitchen_flower_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mKitchenFlower.startAnimation(animation);
+		kitchenFlower.startAnimation(animation);
 	}
 
 	private void animateInKitchenPan(long delay) {
-		mKitchenPan.setVisibility(View.VISIBLE);
+		kitchenPan.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.kitchen_pan_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mKitchenPan.startAnimation(animation);
+		kitchenPan.startAnimation(animation);
 	}
 
 	private void animateInKitchenStool(long delay) {
-		mKitchenStool.setVisibility(View.VISIBLE);
+		kitchenStool.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.kitchen_stool_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mKitchenStool.startAnimation(animation);
+		kitchenStool.startAnimation(animation);
 	}
 
 	private void animateOutFrame(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mFrameImage.startAnimation(animation);
-		mFrameImage.setVisibility(View.INVISIBLE);
+		frameImage.startAnimation(animation);
+		frameImage.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutLamp(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mLampImage.startAnimation(animation);
-		mLampImage.setVisibility(View.INVISIBLE);
+		lampImage.startAnimation(animation);
+		lampImage.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutSofa(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mSofaImage.startAnimation(animation);
-		mSofaImage.setVisibility(View.INVISIBLE);
+		sofaImage.startAnimation(animation);
+		sofaImage.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutPlant(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mPlantImage.startAnimation(animation);
-		mPlantImage.setVisibility(View.INVISIBLE);
+		plantImage.startAnimation(animation);
+		plantImage.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutTv(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mTvImage.startAnimation(animation);
-		mTvImage.setVisibility(View.INVISIBLE);
+		tvImage.startAnimation(animation);
+		tvImage.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateOutTable(long delay) {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.images_animation_out);
 		animation.setStartOffset(delay);
-		mTableImage.startAnimation(animation);
-		mTableImage.setVisibility(View.INVISIBLE);
+		tableImage.startAnimation(animation);
+		tableImage.setVisibility(View.INVISIBLE);
 	}
 
 	private void animateLivingRoomIn(long delay) {
@@ -498,50 +522,50 @@ public class BaseAnimatedFragment extends BaseFragment {
 	}
 
 	private void animateInFrame(long delay) {
-		mFrameImage.setVisibility(View.VISIBLE);
+		frameImage.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.living_room_frame_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mFrameImage.startAnimation(animation);
+		frameImage.startAnimation(animation);
 	}
 
 	private void animateInLamp(long delay) {
-		mLampImage.setVisibility(View.VISIBLE);
+		lampImage.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.living_room_lamp_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mLampImage.startAnimation(animation);
+		lampImage.startAnimation(animation);
 	}
 
 	private void animateInSofa(long delay) {
-		mSofaImage.setVisibility(View.VISIBLE);
+		sofaImage.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.living_room_sofa_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mSofaImage.startAnimation(animation);
+		sofaImage.startAnimation(animation);
 	}
 
 	private void animateInPlant(long delay) {
-		mPlantImage.setVisibility(View.VISIBLE);
+		plantImage.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.living_room_plant_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mPlantImage.startAnimation(animation);
+		plantImage.startAnimation(animation);
 	}
 
 	private void animateInTv(long delay) {
-		mTvImage.setVisibility(View.VISIBLE);
+		tvImage.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.living_room_tv_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mTvImage.startAnimation(animation);
+		tvImage.startAnimation(animation);
 	}
 
 	private void animateInTable(long delay) {
-		mTableImage.setVisibility(View.VISIBLE);
+		tableImage.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.living_room_low_table_image_animation_in);
 		animation.setInterpolator(new DecelerateInterpolator(5f));
 		animation.setStartOffset(delay);
-		mTableImage.startAnimation(animation);
+		tableImage.startAnimation(animation);
 	}
 }

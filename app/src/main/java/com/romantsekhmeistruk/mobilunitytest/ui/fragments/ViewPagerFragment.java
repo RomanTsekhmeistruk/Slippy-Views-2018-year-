@@ -61,6 +61,13 @@ public class ViewPagerFragment extends BaseAnimatedFragment {
 		pager.setPageMargin((int) UiUtils.dpToPix(getContext(), getResources().getDimension(R.dimen.view_pager_margin)));
 		pager.setClipChildren(false);
 
+		pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				onCenterItemChangedListener.onCenterItemChanged(position);
+			}
+		});
+
 		pager.setPageTransformer(false, new ViewPager.PageTransformer() {
 			private static final float MIN_SCALE = 0.85f;
 			private static final float MIN_ALPHA = 0.85f;

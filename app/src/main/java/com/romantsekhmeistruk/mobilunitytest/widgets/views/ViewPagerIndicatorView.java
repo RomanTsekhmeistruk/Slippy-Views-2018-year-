@@ -14,18 +14,18 @@ public class ViewPagerIndicatorView extends LinearLayout {
 
 	private static final int SMALL_INDICATOR_MARGIN_DP = 10;
 
-	private Context mContext;
+	private Context context;
 
-	private ViewPager mViewPager;
-	private RecyclerView mRecyclerView;
+	private ViewPager viewPager;
+	private RecyclerView recyclerView;
 
-	private int mIndicatorSize;
-	private int mIndicatorMargin;
+	private int indicatorSize;
+	private int indicatorMargin;
 
-	private int mLastSelected = -1;
+	private int lastSelected = -1;
 
-	private ViewPagerColor mViewPagerColor = ViewPagerColor.PURPLE;
-	private ViewPagerMargin mViewPagerMargin = ViewPagerMargin.NORMAL;
+	private ViewPagerColor viewPagerColor = ViewPagerColor.PURPLE;
+	private ViewPagerMargin viewPagerMargin = ViewPagerMargin.NORMAL;
 
 	public enum ViewPagerColor {
 		PURPLE
@@ -42,41 +42,41 @@ public class ViewPagerIndicatorView extends LinearLayout {
 	public ViewPagerIndicatorView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
-		mContext = context;
+		this.context = context;
 
 		setOrientation(HORIZONTAL);
 		setGravity(Gravity.CENTER);
 
-		mIndicatorSize = context.getResources().getDimensionPixelSize(R.dimen.indicator_size);
-		if (mViewPagerMargin.equals(ViewPagerMargin.NORMAL)) {
-			mIndicatorMargin = context.getResources().getDimensionPixelSize(R.dimen.indicator_margin);
+		indicatorSize = context.getResources().getDimensionPixelSize(R.dimen.indicator_size);
+		if (viewPagerMargin.equals(ViewPagerMargin.NORMAL)) {
+			indicatorMargin = context.getResources().getDimensionPixelSize(R.dimen.indicator_margin);
 		}
 		else {
-			mIndicatorMargin = SMALL_INDICATOR_MARGIN_DP;
+			indicatorMargin = SMALL_INDICATOR_MARGIN_DP;
 		}
 
 		drawIndicators(1, 3);
 	}
 
 	public void setViewPagerColor(ViewPagerColor color) {
-		mViewPagerColor = color;
+		viewPagerColor = color;
 	}
 
 	public void setViewPagerMargin(ViewPagerMargin margin) {
-		mViewPagerMargin = margin;
-		if (mViewPagerMargin.equals(ViewPagerMargin.NORMAL)) {
-			mIndicatorMargin = mContext.getResources().getDimensionPixelSize(R.dimen.indicator_margin);
+		viewPagerMargin = margin;
+		if (viewPagerMargin.equals(ViewPagerMargin.NORMAL)) {
+			indicatorMargin = context.getResources().getDimensionPixelSize(R.dimen.indicator_margin);
 		}
 		else {
-			mIndicatorMargin = SMALL_INDICATOR_MARGIN_DP;
+			indicatorMargin = SMALL_INDICATOR_MARGIN_DP;
 		}
 		invalidateIndicators();
 	}
 
 	public void setViewPager(ViewPager viewPager) {
-		mViewPager = viewPager;
+		this.viewPager = viewPager;
 
-		mViewPager.addOnPageChangeListener(
+		this.viewPager.addOnPageChangeListener(
 				new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
@@ -88,32 +88,32 @@ public class ViewPagerIndicatorView extends LinearLayout {
 	}
 
 	public void setRecyclerView(RecyclerView recyclerView) {
-		mRecyclerView = recyclerView;
+		this.recyclerView = recyclerView;
 		invalidateIndicators(0);
 	}
 
 	public void invalidateIndicators() {
-		invalidateIndicators(mLastSelected);
+		invalidateIndicators(lastSelected);
 	}
 
 	public void invalidateIndicators(int currentPage) {
 		int pagesCount = -1;
-		if (mRecyclerView != null) {
-			pagesCount = mRecyclerView.getAdapter() != null ? mRecyclerView.getAdapter().getItemCount() : -1;
+		if (recyclerView != null) {
+			pagesCount = recyclerView.getAdapter() != null ? recyclerView.getAdapter().getItemCount() : -1;
 		}
-		else if (mViewPager != null) {
-			pagesCount = mViewPager.getAdapter() != null ? mViewPager.getAdapter().getCount() : -1;
+		else if (viewPager != null) {
+			pagesCount = viewPager.getAdapter() != null ? viewPager.getAdapter().getCount() : -1;
 		}
 		removeAllViews();
 		drawIndicators(currentPage, pagesCount);
 	}
 
 	private void drawIndicators(int current, int total) {
-		LayoutParams layoutParams = new LayoutParams(mIndicatorSize, mIndicatorSize);
-		layoutParams.setMargins(mIndicatorMargin, mIndicatorMargin, mIndicatorMargin, mIndicatorMargin);
+		LayoutParams layoutParams = new LayoutParams(indicatorSize, indicatorSize);
+		layoutParams.setMargins(indicatorMargin, indicatorMargin, indicatorMargin, indicatorMargin);
 		for (int i = 0; i < total; i++) {
 			View view = new View(getContext());
-			if (mViewPagerColor.equals(ViewPagerColor.PURPLE)) {
+			if (viewPagerColor.equals(ViewPagerColor.PURPLE)) {
 				view.setBackgroundResource(R.drawable.view_pager_indicator_purple);
 			}
 
@@ -124,13 +124,13 @@ public class ViewPagerIndicatorView extends LinearLayout {
 	}
 
 	private void selectIndicator(int current) {
-		if (mLastSelected > -1 && mLastSelected < getChildCount()) {
-			getChildAt(mLastSelected).setSelected(false);
+		if (lastSelected > -1 && lastSelected < getChildCount()) {
+			getChildAt(lastSelected).setSelected(false);
 		}
 		if (current > -1 && current < getChildCount()) {
 			getChildAt(current).setSelected(true);
 		}
 
-		mLastSelected = current;
+		lastSelected = current;
 	}
 }

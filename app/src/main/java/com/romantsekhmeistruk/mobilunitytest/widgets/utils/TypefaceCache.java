@@ -13,17 +13,17 @@ public class TypefaceCache {
 
 	public static final String DEFAULT = "OpenSans-Regular.ttf";
 
-	private static HashMap<String, Typeface> sCache;
+	private static HashMap<String, Typeface> cache;
 
 	public static Typeface getTypeface(Context context, String typefaceName) {
-		if (sCache == null) {
-			sCache = new HashMap<>(5);
+		if (cache == null) {
+			cache = new HashMap<>(5);
 		}
 
-		Typeface tf = sCache.get(typefaceName);
+		Typeface tf = cache.get(typefaceName);
 		if (tf == null) {
 			tf = Typeface.createFromAsset(context.getAssets(), String.format("fonts/%s", typefaceName));
-			sCache.put(typefaceName, tf);
+			cache.put(typefaceName, tf);
 		}
 
 		return tf;
