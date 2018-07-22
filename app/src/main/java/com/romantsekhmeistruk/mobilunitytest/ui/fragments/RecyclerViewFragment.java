@@ -1,9 +1,11 @@
 package com.romantsekhmeistruk.mobilunitytest.ui.fragments;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import com.romantsekhmeistruk.mobilunitytest.R;
 import com.romantsekhmeistruk.mobilunitytest.ui.fragments.base.BaseAnimatedFragment;
 import com.romantsekhmeistruk.mobilunitytest.widgets.adapters.RoomsRecyclerViewAdapter;
+import com.romantsekhmeistruk.mobilunitytest.widgets.decorators.ItemCenterDecorator;
 import com.romantsekhmeistruk.mobilunitytest.widgets.views.SnappedRecyclerView;
 import com.romantsekhmeistruk.mobilunitytest.widgets.views.ViewPagerIndicatorView;
 
@@ -55,5 +58,13 @@ public class RecyclerViewFragment extends BaseAnimatedFragment {
 
 		viewPagerIndicatorView.setRecyclerView(recyclerView);
 		recyclerView.setViewPagerIndicatorView(viewPagerIndicatorView);
+
+		Display display = getActivity().getWindowManager().getDefaultDisplay();
+		final Point size = new Point();
+		display.getSize(size);
+
+		recyclerView.addItemDecoration(new ItemCenterDecorator((int) getResources().getDimension(R.dimen.recycler_view_padding),
+															   size.x,
+															   getResources().getDimension(R.dimen.item_width)));
 	}
 }
