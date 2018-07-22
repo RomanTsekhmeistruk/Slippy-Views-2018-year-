@@ -18,6 +18,10 @@ import com.romantsekhmeistruk.mobilunitytest.widgets.views.SnappedRecyclerView;
 import com.romantsekhmeistruk.mobilunitytest.widgets.views.ViewPagerIndicatorView;
 
 import butterknife.BindView;
+import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
+import me.everything.android.ui.overscroll.IOverScrollDecor;
+import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
+import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
 
 // Strange name? Yes, but understandable within the project
 public class RecyclerViewFragment extends BaseAnimatedFragment {
@@ -66,5 +70,37 @@ public class RecyclerViewFragment extends BaseAnimatedFragment {
 		recyclerView.addItemDecoration(new ItemCenterDecorator((int) getResources().getDimension(R.dimen.recycler_view_padding),
 															   size.x,
 															   getResources().getDimension(R.dimen.item_width)));
+
+		new HorizontalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView))
+				.setOverScrollUpdateListener(
+						new IOverScrollUpdateListener() { // Setting page resizing when overscroll
+
+							private static final float MIN_SCALE = 0.85f;
+							private static final float MIN_ALPHA = 0.7f;
+
+							@Override
+							public void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset) {
+								View transformedView;
+
+								if (offset > 0) {
+									transformedView = recyclerView.getChildAt(0);
+								}
+								else {
+									transformedView = recyclerView.getChildAt(recyclerView.getAdapter().getItemCount() - 1);
+								}
+
+								float scale = (float) 1.0 - (((Math.abs(offset) * 100) / size.x) / 100);
+								float alpha = (float) Math.pow(scale, 3);
+
+								scale = Math.max(scale, MIN_SCALE);
+								alpha = Math.max(alpha, MIN_ALPHA);
+
+								if (transformedView != null) {
+									transformedView.setScaleX(scale);
+									transformedView.setScaleY(scale);
+									transformedView.setAlpha(alpha);
+								}
+							}
+						});
 	}
 }
