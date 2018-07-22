@@ -10,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import com.romantsekhmeistruk.mobilunitytest.R;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class BaseActivity extends AppCompatActivity {
+
+	private Unbinder unbinder;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,7 +25,13 @@ public class BaseActivity extends AppCompatActivity {
 	@Override
 	public void setContentView(int layoutResID) {
 		super.setContentView(layoutResID);
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unbinder.unbind();
 	}
 
 	public void startFragment(Fragment fragment, boolean addToBackStack) {
