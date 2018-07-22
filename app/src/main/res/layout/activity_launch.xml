@@ -22,6 +22,7 @@
 			android:orientation="vertical">
 
 			<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+				android:id="@+id/header"
 				android:layout_width="wrap_content"
 				android:layout_marginTop="@dimen/header_margin_top"
 				android:layout_height="wrap_content"
@@ -32,6 +33,7 @@
 				app:textFont="@string/font_pebble_regular"/>
 
 			<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+				android:id="@+id/subheader"
 				android:layout_width="wrap_content"
 				android:layout_marginTop="20dp"
 				android:layout_height="wrap_content"
@@ -41,40 +43,47 @@
 				android:textSize="@dimen/normal_text_size"
 				app:textFont="@string/font_open_sans_regular"/>
 
-			<FrameLayout
-				android:id="@+id/recycler_view"
-				android:layout_marginTop="40dp"
+			<LinearLayout
+				android:id="@+id/buttons_container"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/button_height"
-				android:background="@drawable/view_blueberry_rounded_corners_rectangle">
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
 
-				<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:text="@string/recycler_view"
-					android:textColor="@color/colorWhite"
-					android:textSize="@dimen/button_text_size"
-					app:font="@string/font_open_sans_regular"/>
-			</FrameLayout>
+				<FrameLayout
+					android:id="@+id/recycler_view"
+					android:layout_marginTop="40dp"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/button_height"
+					android:background="@drawable/view_blueberry_rounded_corners_rectangle">
 
-			<FrameLayout
-				android:id="@+id/view_pager"
-				android:layout_marginTop="20dp"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/button_height"
-				android:layout_marginBottom="20dp"
-				android:background="@drawable/view_white_rounded_corners_rectangle">
+					<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:text="@string/recycler_view"
+						android:textColor="@color/colorWhite"
+						android:textSize="@dimen/button_text_size"
+						app:font="@string/font_open_sans_regular"/>
+				</FrameLayout>
 
-				<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:text="@string/view_pager"
-					android:textColor="@color/colorBlueberry"
-					android:textSize="@dimen/button_text_size"
-					app:font="@string/font_open_sans_regular"/>
-			</FrameLayout>
+				<FrameLayout
+					android:id="@+id/view_pager"
+					android:layout_marginTop="20dp"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/button_height"
+					android:layout_marginBottom="20dp"
+					android:background="@drawable/view_white_rounded_corners_rectangle">
+
+					<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:text="@string/view_pager"
+						android:textColor="@color/colorBlueberry"
+						android:textSize="@dimen/button_text_size"
+						app:font="@string/font_open_sans_regular"/>
+				</FrameLayout>
+			</LinearLayout>
 		</LinearLayout>
 	</ScrollView>
 </RelativeLayout>
