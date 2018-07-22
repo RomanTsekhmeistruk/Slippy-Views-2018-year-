@@ -7,6 +7,10 @@
 	<string name="view_pager">Using ViewPager</string>
 	<string name="recycler_view">Using RecyclerView</string>
 
+	<string name="living_room">Living Room</string>
+	<string name="kitchen">Kitchen</string>
+	<string name="bedroom">Bedroom</string>
+
 	<!-- Fonts -->
 	<string name="font_open_sans_regular">OpenSans-Regular.ttf</string>
 	<string name="font_pebble_regular">PebbleRegular.ttf</string>
