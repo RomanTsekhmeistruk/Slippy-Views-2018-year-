@@ -16,7 +16,7 @@ public class SnappedRecyclerView extends RecyclerView {
 	private OnCenterItemChangedListener mCenterItemChangedListener;
 
 	private float minScale = 0.9f;
-	private float minAlpha = 0.9f;
+	private float minAlpha = 0.7f;
 
 	private ViewPagerIndicatorView viewPagerIndicatorView;
 
@@ -61,7 +61,7 @@ public class SnappedRecyclerView extends RecyclerView {
 			child.setScaleX(scale);
 			child.setScaleY(scale);
 
-			float alpha = 1f - (0.4f * percentage);
+			float alpha = (float) Math.pow(1f - (0.4f * percentage), 3);
 			alpha = Math.max(alpha, minAlpha);
 			child.setAlpha(alpha);
 
