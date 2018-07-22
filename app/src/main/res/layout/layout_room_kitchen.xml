@@ -1,0 +1,63 @@
+<android.support.percent.PercentRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/kitchen"
+	android:layout_width="match_parent"
+	android:layout_height="217dp"
+	android:layout_below="@+id/subheader"
+	android:layout_marginTop="5dp"
+	android:visibility="invisible">
+
+	<ImageView
+		android:id="@+id/kitchen_island"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_marginLeft="-100dp"
+		android:src="@drawable/kitchen_island_color"/>
+
+	<ImageView
+		android:id="@+id/kitchen_shelf"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="52dp"
+		android:src="@drawable/kitchen_shelf_color"/>
+
+	<ImageView
+		android:id="@+id/kitchen_frame"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/kitchen_shelf"
+		android:layout_marginBottom="3dp"
+		android:layout_marginLeft="31dp"
+		android:src="@drawable/kitchen_frame_color"/>
+
+	<ImageView
+		android:id="@+id/kitchen_flower"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/kitchen_shelf"
+		android:layout_marginBottom="3dp"
+		android:layout_marginLeft="86dp"
+		android:src="@drawable/kitchen_flower_color"/>
+
+	<ImageView
+		android:id="@+id/kitchen_pan"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignRight="@+id/kitchen_island"
+		android:layout_alignTop="@+id/kitchen_island"
+		android:layout_marginRight="-1dp"
+		android:layout_marginTop="20dp"
+		android:src="@drawable/kitchen_pan_color"/>
+
+	<ImageView
+		android:id="@+id/kitchen_stool"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:src="@drawable/kitchen_stool_color"
+		app:layout_marginEndPercent="6.1%"/>
+</android.support.percent.PercentRelativeLayout>

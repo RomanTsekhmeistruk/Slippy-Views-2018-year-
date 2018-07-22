@@ -1,0 +1,61 @@
+<android.support.percent.PercentRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/living_room"
+	android:layout_width="match_parent"
+	android:layout_height="192.2dp"
+	android:layout_below="@+id/subheader"
+	android:layout_marginTop="5dp"
+	android:visibility="invisible">
+
+	<ImageView
+		android:id="@+id/lamp_image"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="1.8dp"
+		android:src="@drawable/living_room_lamp_color"
+		app:layout_marginStartPercent="36.9%"/>
+
+	<ImageView
+		android:id="@+id/frame_image"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="-110dp"
+		android:src="@drawable/living_room_frame_color"/>
+
+	<ImageView
+		android:id="@+id/sofa_image"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/frame_image"
+		android:layout_marginLeft="-110dp"
+		android:layout_marginTop="9.9dp"
+		android:src="@drawable/living_room_sofa_color"/>
+
+	<ImageView
+		android:id="@+id/plant_image"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="64.8dp"
+		android:src="@drawable/living_room_plant_color"
+		app:layout_marginEndPercent="37.3%"/>
+
+	<ImageView
+		android:id="@+id/table_image"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginRight="-170dp"
+		android:src="@drawable/living_room_low_table_color"/>
+
+	<ImageView
+		android:id="@+id/tv_image"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/table_image"
+		android:layout_alignParentRight="true"
+		android:layout_marginRight="-63dp"
+		android:src="@drawable/living_room_tv_color"/>
+</android.support.percent.PercentRelativeLayout>

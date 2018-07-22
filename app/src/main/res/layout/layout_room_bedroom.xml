@@ -1,0 +1,64 @@
+<android.support.percent.PercentRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/bedroom"
+	android:layout_width="match_parent"
+	android:layout_height="185dp"
+	android:layout_below="@+id/subheader"
+	android:layout_marginTop="5dp"
+	android:visibility="invisible">
+
+	<ImageView
+		android:id="@+id/bedroom_room_frame"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="-88dp"
+		android:src="@drawable/bedroom_frame_color"/>
+
+	<ImageView
+		android:id="@+id/bedroom_bed"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_marginLeft="-150dp"
+		android:src="@drawable/bedroom_bed_color"/>
+
+	<ImageView
+		android:id="@+id/bedroom_table"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginBottom="19dp"
+		android:src="@drawable/bedroom_table_color"
+		app:layout_marginEndPercent="24.2%"/>
+
+	<ImageView
+		android:id="@+id/bedroom_books"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@+id/bedroom_table"
+		android:layout_marginRight="-83dp"
+		android:layout_marginTop="-16dp"
+		android:layout_toLeftOf="@+id/bedroom_table"
+		android:src="@drawable/bedroom_books_color"/>
+
+	<ImageView
+		android:id="@+id/bedroom_lamp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@+id/bedroom_table"
+		android:layout_marginRight="-35dp"
+		android:layout_marginTop="-44dp"
+		android:layout_toLeftOf="@+id/bedroom_table"
+		android:src="@drawable/bedroom_lamp_color"/>
+
+	<ImageView
+		android:id="@+id/bedroom_plant"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="7dp"
+		android:src="@drawable/bedroom_plant_color"
+		app:layout_marginEndPercent="1.9%"/>
+</android.support.percent.PercentRelativeLayout>

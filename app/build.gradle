@@ -35,4 +35,7 @@ dependencies {
 
     // Overscroll
     implementation 'me.everything:overscroll-decor-android:1.0.4'
+
+    // Percent layout
+    implementation 'com.android.support:percent:27.1.1'
 }
