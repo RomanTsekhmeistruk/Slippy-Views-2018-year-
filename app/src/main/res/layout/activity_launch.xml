@@ -3,10 +3,11 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/container"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@drawable/bg_welcome"
-	tools:context=".LaunchActivity">
+	tools:context=".ui.activities.LaunchActivity">
 
 	<ScrollView
 		android:layout_width="match_parent"
@@ -62,8 +63,8 @@
 				android:layout_marginTop="20dp"
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/button_height"
-				android:background="@drawable/view_white_rounded_corners_rectangle"
-				android:layout_marginBottom="20dp">
+				android:layout_marginBottom="20dp"
+				android:background="@drawable/view_white_rounded_corners_rectangle">
 
 				<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
 					android:layout_width="wrap_content"
