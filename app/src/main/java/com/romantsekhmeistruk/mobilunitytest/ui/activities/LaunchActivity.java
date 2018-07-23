@@ -11,6 +11,7 @@ import com.romantsekhmeistruk.mobilunitytest.R;
 import com.romantsekhmeistruk.mobilunitytest.ui.activities.base.BaseActivity;
 import com.romantsekhmeistruk.mobilunitytest.ui.fragments.RecyclerViewFragment;
 import com.romantsekhmeistruk.mobilunitytest.ui.fragments.ViewPagerFragment;
+import com.romantsekhmeistruk.mobilunitytest.widgets.utils.AnimationUtil;
 import com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView;
 
 import butterknife.BindView;
@@ -70,10 +71,8 @@ public class LaunchActivity extends BaseActivity {
 	}
 
 	private void animateHeaderIn(long delay) {
-		Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.header_animation_in);
-		animation.setInterpolator(new DecelerateInterpolator(6f));
-		animation.setStartOffset(delay);
-		header.startAnimation(animation);
+		AnimationUtil.animate(delay, View.VISIBLE, header,
+							  R.anim.header_animation_in, new DecelerateInterpolator(5f));
 	}
 
 	private void animateSubheaderIn() {
@@ -81,10 +80,8 @@ public class LaunchActivity extends BaseActivity {
 	}
 
 	private void animateSubheaderIn(long delay) {
-		Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.header_animation_in);
-		animation.setInterpolator(new DecelerateInterpolator(6f));
-		animation.setStartOffset(delay);
-		subheader.startAnimation(animation);
+		AnimationUtil.animate(delay, View.VISIBLE, subheader,
+							  R.anim.header_animation_in, new DecelerateInterpolator(5f));
 	}
 
 	private void animateButtons() {
@@ -92,9 +89,7 @@ public class LaunchActivity extends BaseActivity {
 	}
 
 	private void animateButtons(long delay) {
-		Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.header_animation_in);
-		animation.setInterpolator(new DecelerateInterpolator(6f));
-		animation.setStartOffset(delay);
-		buttonsContainer.startAnimation(animation);
+		AnimationUtil.animate(delay, View.VISIBLE, buttonsContainer,
+							  R.anim.header_animation_in, new DecelerateInterpolator(5f));
 	}
 }

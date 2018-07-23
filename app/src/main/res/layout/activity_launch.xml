@@ -17,12 +17,12 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginRight="@dimen/standard_margin"
-			android:layout_marginLeft="@dimen/standard_margin"
 			android:orientation="vertical">
 
 			<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
 				android:id="@+id/header"
+				android:layout_marginRight="@dimen/standard_margin"
+				android:layout_marginLeft="@dimen/standard_margin"
 				android:layout_width="wrap_content"
 				android:layout_marginTop="@dimen/header_margin_top"
 				android:layout_height="wrap_content"
@@ -35,6 +35,8 @@
 			<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
 				android:id="@+id/subheader"
 				android:layout_width="wrap_content"
+				android:layout_marginRight="@dimen/standard_margin"
+				android:layout_marginLeft="@dimen/standard_margin"
 				android:layout_marginTop="20dp"
 				android:layout_height="wrap_content"
 				android:lineSpacingExtra="0dp"
@@ -45,6 +47,8 @@
 
 			<LinearLayout
 				android:id="@+id/buttons_container"
+				android:layout_marginRight="@dimen/standard_margin"
+				android:layout_marginLeft="@dimen/standard_margin"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:orientation="vertical">
