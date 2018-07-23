@@ -120,15 +120,15 @@ public class BaseAnimatedFragment extends BaseFragment {
 			switch (centerPosition) {
 				case 0:
 					lastShowedRoom = 0;
-					livingRoomAnimateInHandler.postDelayed(livingRoomAnimateInRunnable, 1000);
+					livingRoomAnimateInHandler.postDelayed(livingRoomAnimateInRunnable, 400);
 					break;
 				case 1:
 					lastShowedRoom = 1;
-					bedroomAnimateInHandler.postDelayed(bedroomAnimateInRunnable, 1000);
+					bedroomAnimateInHandler.postDelayed(bedroomAnimateInRunnable, 400);
 					break;
 				case 2:
 					lastShowedRoom = 2;
-					kitchenAnimateInHandler.postDelayed(kitchenAnimateInRunnable, 1000);
+					kitchenAnimateInHandler.postDelayed(kitchenAnimateInRunnable, 400);
 					break;
 			}
 		};
