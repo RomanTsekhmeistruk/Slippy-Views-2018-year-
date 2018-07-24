@@ -92,6 +92,8 @@ public class BaseAnimatedFragment extends BaseFragment {
 	private int lastShowedRoom;
 	private boolean wasNewAnimationStarted;
 
+	private int animationOutDuration;
+
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -125,15 +127,15 @@ public class BaseAnimatedFragment extends BaseFragment {
 			switch (centerPosition) {
 				case 0:
 					lastShowedRoom = 0;
-					livingRoomAnimateInHandler.postDelayed(livingRoomAnimateInRunnable, 400);
+					livingRoomAnimateInHandler.postDelayed(livingRoomAnimateInRunnable, animationOutDuration);
 					break;
 				case 1:
 					lastShowedRoom = 1;
-					bedroomAnimateInHandler.postDelayed(bedroomAnimateInRunnable, 400);
+					bedroomAnimateInHandler.postDelayed(bedroomAnimateInRunnable, animationOutDuration);
 					break;
 				case 2:
 					lastShowedRoom = 2;
-					kitchenAnimateInHandler.postDelayed(kitchenAnimateInRunnable, 400);
+					kitchenAnimateInHandler.postDelayed(kitchenAnimateInRunnable, animationOutDuration);
 					break;
 			}
 		};
@@ -165,6 +167,8 @@ public class BaseAnimatedFragment extends BaseFragment {
 	private void initialize() {
 		initializeAnimationHelpers();
 		initOnCenterItemChangedListener();
+
+		animationOutDuration = getResources().getInteger(R.integer.animation_out_duration);
 	}
 
 	private void animate() {
