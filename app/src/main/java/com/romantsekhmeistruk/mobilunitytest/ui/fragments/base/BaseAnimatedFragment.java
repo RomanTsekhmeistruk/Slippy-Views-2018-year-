@@ -90,6 +90,7 @@ public class BaseAnimatedFragment extends BaseFragment {
 	protected OnCenterItemChangedListener onCenterItemChangedListener;
 
 	private int lastShowedRoom;
+	private boolean wasNewAnimationStarted;
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -114,7 +115,12 @@ public class BaseAnimatedFragment extends BaseFragment {
 			if (centerPosition == lastShowedRoom) {
 				return;
 			}
-			animateOut();
+
+			if (wasNewAnimationStarted) {
+				animateOut();
+				wasNewAnimationStarted = false;
+			}
+
 			clearAnimations();
 			switch (centerPosition) {
 				case 0:
@@ -194,6 +200,9 @@ public class BaseAnimatedFragment extends BaseFragment {
 		if (!isViewsAvailable()) {
 			return;
 		}
+
+		wasNewAnimationStarted = true;
+
 		if (livingRoomImages.getVisibility() == View.VISIBLE) {
 			animateLivingRoomIn(delay);
 			return;
