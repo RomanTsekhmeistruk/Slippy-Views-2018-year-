@@ -15,7 +15,7 @@
 
 		<include layout="@layout/button_back"/>
 
-		<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+		<com.romantsekhmeistruk.slippyviews.widgets.views.FontTextView
 			android:id="@+id/header"
 			android:layout_width="wrap_content"
 			android:layout_marginRight="@dimen/standard_margin"
@@ -33,7 +33,7 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
 
-			<com.romantsekhmeistruk.mobilunitytest.widgets.views.PagerContainer
+			<com.romantsekhmeistruk.slippyviews.widgets.views.PagerContainer
 				android:id="@+id/pager_container"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
@@ -42,9 +42,9 @@
 					android:layout_width="300dp"
 					android:layout_height="200dp"
 					android:layout_gravity="center_horizontal"/>
-			</com.romantsekhmeistruk.mobilunitytest.widgets.views.PagerContainer>
+			</com.romantsekhmeistruk.slippyviews.widgets.views.PagerContainer>
 
-			<com.romantsekhmeistruk.mobilunitytest.widgets.views.ViewPagerIndicatorView
+			<com.romantsekhmeistruk.slippyviews.widgets.views.ViewPagerIndicatorView
 				android:id="@+id/pager_indicator"
 				android:layout_marginTop="10dp"
 				android:layout_width="match_parent"

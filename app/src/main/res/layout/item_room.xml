@@ -6,7 +6,7 @@
 	android:layout_height="@dimen/item_height"
 	android:background="@drawable/view_item_room_background">
 
-	<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+	<com.romantsekhmeistruk.slippyviews.widgets.views.FontTextView
 		android:id="@+id/room_name"
 		android:layout_centerInParent="true"
 		android:layout_width="wrap_content"

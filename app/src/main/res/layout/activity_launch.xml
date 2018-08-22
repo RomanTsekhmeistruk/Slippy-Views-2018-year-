@@ -19,7 +19,7 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
 
-			<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+			<com.romantsekhmeistruk.slippyviews.widgets.views.FontTextView
 				android:id="@+id/header"
 				android:layout_marginRight="@dimen/standard_margin"
 				android:layout_marginLeft="@dimen/standard_margin"
@@ -32,7 +32,7 @@
 				android:textSize="@dimen/header_text_size"
 				app:textFont="@string/font_pebble_regular"/>
 
-			<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+			<com.romantsekhmeistruk.slippyviews.widgets.views.FontTextView
 				android:id="@+id/subheader"
 				android:layout_width="wrap_content"
 				android:layout_marginRight="@dimen/standard_margin"
@@ -60,7 +60,7 @@
 					android:layout_height="@dimen/button_height"
 					android:background="@drawable/view_blueberry_rounded_corners_rectangle">
 
-					<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+					<com.romantsekhmeistruk.slippyviews.widgets.views.FontTextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_gravity="center"
@@ -78,7 +78,7 @@
 					android:layout_marginBottom="20dp"
 					android:background="@drawable/view_white_rounded_corners_rectangle">
 
-					<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+					<com.romantsekhmeistruk.slippyviews.widgets.views.FontTextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_gravity="center"

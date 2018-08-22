@@ -1,8 +1,8 @@
 <resources>
-	<string name="app_name">Mobilunity Test</string>
+	<string name="app_name">Slippy Views</string>
 
-	<string name="welcome">Hi there! Welcome to Mobilunity Test Task :)</string>
-	<string name="welcome_screen_description">I did not know if the items should be static, or they could change dynamically (︶︿︶). Well, so I created 2 separate cases - using RecylcerView (items can change dynamically) and ViewPager (items are static) (◎‿-) . Here you can choose what you like more.</string>
+	<string name="welcome">Hi there! :)</string>
+	<string name="welcome_screen_description">I created 2 separate cases - using RecylcerView (items can change dynamically) and ViewPager (items are static) (◎‿-) . Here you can choose what you like more.</string>
 
 	<string name="view_pager">Using ViewPager</string>
 	<string name="recycler_view">Using RecyclerView</string>

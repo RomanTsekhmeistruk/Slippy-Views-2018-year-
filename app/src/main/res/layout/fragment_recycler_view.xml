@@ -15,7 +15,7 @@
 
 		<include layout="@layout/button_back"/>
 
-		<com.romantsekhmeistruk.mobilunitytest.widgets.views.FontTextView
+		<com.romantsekhmeistruk.slippyviews.widgets.views.FontTextView
 			android:id="@+id/header"
 			android:layout_width="wrap_content"
 			android:layout_marginRight="@dimen/standard_margin"
@@ -33,14 +33,14 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
 
-			<com.romantsekhmeistruk.mobilunitytest.widgets.views.SnappedRecyclerView
+			<com.romantsekhmeistruk.slippyviews.widgets.views.SnappedRecyclerView
 				android:id="@+id/recycler_view"
 				android:layout_marginTop="10dp"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:overScrollMode="never"/>
 
-			<com.romantsekhmeistruk.mobilunitytest.widgets.views.ViewPagerIndicatorView
+			<com.romantsekhmeistruk.slippyviews.widgets.views.ViewPagerIndicatorView
 				android:id="@+id/pager_indicator"
 				android:layout_marginTop="10dp"
 				android:layout_width="match_parent"
